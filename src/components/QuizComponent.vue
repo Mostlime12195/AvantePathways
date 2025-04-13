@@ -172,14 +172,33 @@ function changeSection(newSection: number) {
     scrollToTop()
   }
 }
+
+function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: number) {
+  console.log('Selecting answer:', { sectionIndex, questionIndex, optionIndex });
+  answers.value[sectionIndex * 5 + questionIndex] = optionIndex;
+}
 </script>
 
 <template>
   <div class="quiz-container">
     <div v-if="!emailSubmitted" class="email-gate">
-      <h2>Welcome to the Career Assessment</h2>
-      <input v-model="userEmail" type="email" placeholder="Enter your email to begin" />
-      <button @click="submitEmail">Start Quiz</button>
+      <div class="gate-layout">
+        <div class="title-section">
+          <h1>Avante</h1>
+          <h2>Career Pathways</h2>
+          <p class="subtitle">AI-Powered Career Assessment</p>
+        </div>
+        <div class="input-section">
+          <input v-model="userEmail" type="email" placeholder="Your email address"
+            :class="{ 'has-value': userEmail.length > 0 }" />
+          <button @click="submitEmail">Start Assessment</button>
+        </div>
+      </div>
+      <div class="decorative-elements">
+        <div class="circle-glow"></div>
+        <div class="corner-accent top-left"></div>
+        <div class="corner-accent bottom-right"></div>
+      </div>
     </div>
 
     <div v-else class="quiz-content">
@@ -205,14 +224,13 @@ function changeSection(newSection: number) {
                   <span class="question-number">Question {{ qIndex + 1 }}</span>
                   <h3>{{ q.q }}</h3>
                 </div>
-                <div class="options">
-                  <label v-for="(opt, oIndex) in q.options" :key="oIndex"
-                    :class="{ selected: answers[currentSection * 5 + qIndex] === oIndex }">
-                    <input type="radio" :name="`q-${currentSection}-${qIndex}`" :value="oIndex"
-                      v-model="answers[currentSection * 5 + qIndex]">
-                    <span class="radio-custom"></span>
-                    <span class="option-text">{{ opt }}</span>
-                  </label>
+                <div class="options-list">
+                  <div v-for="(opt, oIndex) in q.options" :key="oIndex" class="answer-choice"
+                    :class="{ active: answers[currentSection * 5 + qIndex] === oIndex }"
+                    @click.stop="selectAnswer(currentSection, qIndex, oIndex)">
+                    <div class="circle"></div>
+                    {{ opt }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -261,6 +279,8 @@ function changeSection(newSection: number) {
   padding: 2rem 0;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   overflow-y: auto;
+  background: var(--bg-darker);
+  backdrop-filter: blur(10px);
 }
 
 .main-content {
@@ -276,7 +296,7 @@ function changeSection(newSection: number) {
   display: flex;
   align-items: center;
   gap: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-left: 4px solid transparent;
 }
 
@@ -286,7 +306,7 @@ function changeSection(newSection: number) {
 
 .section-item.active {
   background: rgba(138, 43, 226, 0.2);
-  border-left-color: #8a2be2;
+  border-left-color: var(--neon-purple);
 }
 
 .section-number {
@@ -314,84 +334,77 @@ function changeSection(newSection: number) {
 }
 
 .question {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   padding: 2rem;
   margin: 1.5rem 0;
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.question-header {
-  margin-bottom: 1.5rem;
-}
-
-.question-number {
-  display: block;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--neon-purple);
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.question h3 {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 1.4rem;
-  line-height: 1.4;
-  margin: 0;
-  color: white;
-}
-
-.options {
-  display: grid;
-  gap: 1.2rem;
-}
-
-.options label {
+  transition: all 0.3s ease;
   position: relative;
-  padding: 1.5rem 2rem 1.5rem 4rem;
+}
+
+.question:hover {
+  transform: translateY(-4px);
+  border-color: var(--neon-purple);
+  background: rgba(138, 43, 226, 0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.question-header,
+.options-list {
+  position: relative;
+  z-index: 2;
+}
+
+.answer-choice {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  margin: 0.75rem 0;
   background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.75rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  line-height: 1.4;
+  position: relative;
 }
 
-.options label:hover {
-  background: rgba(255, 255, 255, 0.1);
+.answer-choice:hover {
+  background: rgba(255, 255, 255, 0.08);
   transform: translateX(8px);
-  border-color: rgba(255, 0, 255, 0.3);
-  box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
-}
-
-.options label.selected {
-  background: rgba(138, 43, 226, 0.2);
   border-color: var(--neon-purple);
-  box-shadow:
-    0 0 20px rgba(138, 43, 226, 0.3),
-    inset 0 0 10px rgba(255, 0, 255, 0.2);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.1);
 }
 
-.radio-custom {
-  position: absolute;
-  left: 1.25rem;
+.answer-choice.active {
+  background: rgba(138, 43, 226, 0.15);
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 30px rgba(138, 43, 226, 0.15);
+}
+
+.circle {
   width: 20px;
   height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
+  margin-right: 1.2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  flex-shrink: 0;
 }
 
-.options label.selected .radio-custom {
-  border-color: #8a2be2;
-  background: #8a2be2;
-  box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+.answer-choice:hover .circle {
+  border-color: rgba(138, 43, 226, 0.5);
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.2);
 }
 
-.options label.selected .radio-custom::after {
+.answer-choice.active .circle {
+  border-color: var(--neon-purple);
+  background: var(--neon-purple);
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+
+.answer-choice.active .circle::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -401,14 +414,11 @@ function changeSection(newSection: number) {
   height: 8px;
   background: white;
   border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
-input[type="radio"] {
-  display: none;
-}
-
-.option-text {
-  font-family: 'Inter', sans-serif;
+.text {
+  color: white;
   font-size: 1.1rem;
 }
 
@@ -423,7 +433,7 @@ input[type="radio"] {
   font-size: 1.1rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
@@ -444,75 +454,144 @@ input[type="radio"] {
 }
 
 .nav-button:hover {
-  background: var(--primary-gradient);
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px var(--glow-color);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.2),
+    0 0 30px var(--glow-color);
 }
 
 .nav-button.submit {
-  background: var(--primary-gradient);
+  background: var(--secondary-gradient);
+  animation: float 3s infinite;
 }
 
 .email-gate {
+  position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(138, 43, 226, 0.1));
+  background: linear-gradient(135deg, #0a0014, #1a0033);
+  overflow: hidden;
 }
 
-.email-gate h2 {
+.gate-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 3rem;
+  width: min(90%, 600px);
+  padding: 2rem;
+}
+
+.title-section {
+  text-align: center;
+}
+
+.title-section h1 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
+  font-size: 5rem;
+  margin: 0;
   background: linear-gradient(135deg, #ff00ff, #8a2be2);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 20px var(--glow-color);
-  animation: pulseText 2s infinite;
+  line-height: 1;
 }
 
-.email-gate input {
+.title-section h2 {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+  color: white;
+}
+
+.subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 1rem;
+}
+
+.input-section {
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 400px);
+  margin: 0 auto;
+}
+
+.input-section input {
   width: 100%;
-  max-width: 400px;
-  padding: 1rem;
-  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.07);
   border: 2px solid rgba(138, 43, 226, 0.3);
   border-radius: 0.75rem;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.05);
   color: white;
   transition: all 0.3s ease;
 }
 
-.email-gate input:focus {
-  border-color: #8a2be2;
-  outline: none;
-  box-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
+.input-section button {
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(135deg, #ff00ff, #8a2be2);
+  border: none;
+  border-radius: 0.75rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .email-gate button {
-  margin-top: 2rem;
-  padding: 1rem 3rem;
+  position: relative;
+  padding: 1rem 2rem;
+  font-family: 'Orbitron', sans-serif;
   font-size: 1.2rem;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 600;
   background: linear-gradient(135deg, #ff00ff, #8a2be2);
-  color: white;
   border: none;
   border-radius: 0.75rem;
+  color: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 20px var(--glow-color);
 }
 
 .email-gate button:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 0 30px var(--glow-color);
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(138, 43, 226, 0.4);
+}
+
+.email-gate button:active {
+  transform: translateY(1px);
+}
+
+.background-effects {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glow-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center,
+      rgba(138, 43, 226, 0.15) 0%,
+      rgba(255, 0, 255, 0.1) 25%,
+      transparent 70%);
+}
+
+.glow-lines {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%,
+      rgba(138, 43, 226, 0.1) 50%,
+      transparent 100%);
+  opacity: 0.5;
 }
 
 .progress-bar {
@@ -581,17 +660,49 @@ input[type="radio"] {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .fade-enter-from {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(50px) scale(0.95);
 }
 
 .fade-leave-to {
   opacity: 0;
-  transform: translateX(-30px);
+  transform: translateX(-50px) scale(0.95);
+}
+
+.question-number {
+  display: inline-block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--neon-purple);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 0.8rem;
+  background: rgba(138, 43, 226, 0.08);
+  border-radius: 4px;
+  border: 1px solid rgba(138, 43, 226, 0.15);
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.05);
+  transition: all 0.3s ease;
+}
+
+.question:hover .question-number {
+  background: rgba(138, 43, 226, 0.12);
+  border-color: rgba(138, 43, 226, 0.2);
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.1);
+}
+
+.question h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  margin: 0;
+  color: white;
+  font-weight: 500;
 }
 
 @keyframes fadeIn {
