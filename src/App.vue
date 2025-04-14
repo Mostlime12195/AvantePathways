@@ -37,7 +37,7 @@ body {
   min-height: 100vh;
   width: 100vw;
   background: #0a0a0a;
-  color: white;
+  color: #E0E0E0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
 }

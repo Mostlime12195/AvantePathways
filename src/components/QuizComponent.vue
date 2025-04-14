@@ -17,122 +17,112 @@ interface Section {
 
 const questions: Section[] = [
   {
-    title: "Personality & Work Preferences",
+    title: "Your Work Style",
     items: [
       {
-        q: "Do you prefer working independently or in a team?",
-        options: ["Independently", "In a team", "A mix of both"]
+        q: "Think of the last time you worked on a school assignment or group project. What did you do most?",
+        options: [
+          "I organized the work and made a plan",
+          "I helped explain things or encouraged others",
+          "I focused on getting tasks done quickly",
+          "I just did what I was told or stayed quiet"
+        ]
       },
       {
-        q: "How do you handle pressure and deadlines?",
-        options: ["I thrive under pressure", "I prefer to work at a steady pace", "I get overwhelmed easily"]
+        q: "You're assigned a long homework task. How do you usually react?",
+        options: [
+          "I finish it early so I don't forget",
+          "I wait until the deadline gets close",
+          "I forget about it unless I'm reminded",
+          "I only really do it if it's interesting"
+        ]
       },
       {
-        q: "What best describes your decision-making style?",
-        options: ["Logical and analytical", "Intuitive and emotional", "Creative and out-of-the-box"]
-      },
-      {
-        q: "How do you feel about routine tasks?",
-        options: ["I prefer variety and new challenges", "I don't mind some routine", "I like structured and predictable work"]
-      },
-      {
-        q: "How do you feel about risk-taking?",
-        options: ["I take calculated risks", "I avoid risks", "I enjoy taking risks"]
-      },
-      {
-        q: "What motivates you the most in a job?",
-        options: ["Problem-solving and challenges", "Helping others", "Creative freedom", "Stability and security"]
-      },
-      {
-        q: "Do you prefer working with data, people, or objects?",
-        options: ["Data", "People", "Objects and tools"]
-      },
-      {
-        q: "How important is financial stability in your career choice?",
-        options: ["Very important", "Somewhat important", "Not a priority"]
-      },
-      {
-        q: "Do you enjoy leading and making decisions for a group?",
-        options: ["Yes, I like being in charge", "I prefer collaboration without leading", "I don't like leading"]
-      },
-      {
-        q: "How do you like to express yourself?",
-        options: ["Through writing or speaking", "Through visual or artistic means", "Through logical problem-solving"]
+        q: "You have free time at home. What are you most likely to do?",
+        options: [
+          "Try a new app, tool, or code something",
+          "Watch or make videos, draw, or write something",
+          "Talk to friends or help someone with something",
+          "Build, fix, or take apart something"
+        ]
       }
     ]
   },
   {
-    title: "Thinking Style & Problem-Solving",
+    title: "What You Like",
     items: [
       {
-        q: "What type of problems do you enjoy solving the most?",
-        options: ["Logical and mathematical puzzles", "Social and ethical issues", "Hands-on mechanical or technical problems"]
+        q: "Pick the class you usually enjoy the most (or find easiest):",
+        options: [
+          "Math or Science",
+          "English, History, or Literature",
+          "Art, Drama, or Music",
+          "Tech class or PE"
+        ]
       },
       {
-        q: "Are you more of a big-picture thinker or detail-oriented?",
-        options: ["Big-picture", "Detail-oriented", "A mix of both"]
+        q: "Imagine a school fair is happening. Which role would you actually want?",
+        options: [
+          "Design the event poster or video",
+          "Run a booth or guide people",
+          "Handle the tech setup or sound system",
+          "Come up with the idea or lead the team"
+        ]
       },
       {
-        q: "How do you approach learning something new?",
-        options: ["Research and analyze deeply", "Learn by doing and experimenting", "Ask for guidance from others"]
-      },
-      {
-        q: "Do you prefer structured rules or flexibility in your work?",
-        options: ["I like clear rules and guidelines", "I prefer flexibility and open-ended work", "A mix of both"]
-      },
-      {
-        q: "What is your strongest cognitive skill?",
-        options: ["Logical reasoning", "Creativity and innovation", "Emotional intelligence and communication"]
+        q: "Which of these projects would you most likely start on your own?",
+        options: [
+          "Build a game, app, or website",
+          "Make a short film, comic, or animation",
+          "Help with a fundraiser or social cause",
+          "Customize a gadget or fix something broken"
+        ]
       }
     ]
   },
   {
-    title: "Interests & Passion Areas",
+    title: "Your Career Dealbreakers",
     items: [
       {
-        q: "Which of these activities excites you the most?",
-        options: ["Coding and problem-solving", "Designing and creating new things", "Helping people through advice or action"]
+        q: "Think of a future job. Which of these matters most to you?",
+        options: [
+          "It pays well",
+          "It helps others",
+          "I enjoy doing it every day",
+          "It gives me freedom and independence"
+        ]
       },
       {
-        q: "How do you prefer to spend your free time?",
-        options: ["Reading about new technologies or science", "Creating art, music, or stories", "Talking to people and socializing"]
-      },
-      {
-        q: "Which of these work environments would you enjoy the most?",
-        options: ["A lab or office with computers and data", "A dynamic workplace with people interaction", "A creative studio or outdoor setting"]
-      },
-      {
-        q: "If you could work on anything for a year, what would it be?",
-        options: ["Developing a new AI technology", "Writing a book or making a movie", "Running a social impact project"]
-      },
-      {
-        q: "Do you enjoy working with your hands?",
-        options: ["Yes, I love hands-on work", "Somewhat, but I prefer thinking-based tasks", "Not really, I prefer working on a computer"]
+        q: "Which kind of work feels more comfortable to you?",
+        options: [
+          "Quiet work where I can focus alone",
+          "Group work where people share ideas",
+          "Moving around, hands-on tasks",
+          "A mix — I don't like doing just one thing"
+        ]
       }
     ]
   },
   {
-    title: "Future Vision & Career Values",
+    title: "How You Solve Problems",
     items: [
       {
-        q: "What kind of legacy do you want to leave behind?",
-        options: ["A groundbreaking innovation or discovery", "A lasting impact on people's lives", "A creative masterpiece"]
+        q: "Pick the option that sounds most like something you've done:",
+        options: [
+          "Used a program or website and thought, \"I could make this better\"",
+          "Watched a video and thought, \"I could make something like this\"",
+          "Helped a friend through a tough situation",
+          "Opened up a broken item to figure out how it worked"
+        ]
       },
       {
-        q: "If money were not a factor, what career would you choose?",
-        options: ["Tech entrepreneur or scientist", "Artist, writer, or filmmaker", "Doctor, teacher, or humanitarian worker"]
-      },
-      {
-        q: "How important is work-life balance for you?",
-        options: ["I am willing to work long hours for success", "I want a balance between work and life", "I prefer a relaxed and low-stress career"]
-      },
-      {
-        q: "Do you prefer working with cutting-edge technology?",
-        options: ["Yes, I love being at the forefront of innovation", "I like technology, but I prefer human interactions", "I don't care much about tech"]
-      },
-      {
-        q: "Which best describes your ideal career path?",
-        options: ["Climbing the corporate ladder or running a business", "A stable, well-paying job with clear growth", "A career based on passion and creativity"]
+        q: "Imagine you have to present something to the class. What would you rather do?",
+        options: [
+          "Show a working prototype or coded thing",
+          "Perform something or make a visual presentation",
+          "Explain a big idea or social issue",
+          "I'd rather not present — just build it and show it working"
+        ]
       }
     ]
   }
@@ -412,13 +402,13 @@ function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: 
   transform: translate(-50%, -50%);
   width: 8px;
   height: 8px;
-  background: white;
+  background: #E0E0E0;
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 .text {
-  color: white;
+  color: #E0E0E0;
   font-size: 1.1rem;
 }
 
@@ -427,7 +417,7 @@ function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: 
   border: 2px solid var(--neon-purple);
   padding: 1rem 2.5rem;
   border-radius: 0.75rem;
-  color: white;
+  color: #E0E0E0;
   font-family: 'Rajdhani', sans-serif;
   font-weight: 600;
   font-size: 1.1rem;
@@ -503,7 +493,7 @@ function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: 
 .title-section h2 {
   font-size: 2.5rem;
   margin: 0.5rem 0;
-  color: white;
+  color: #E0E0E0;
 }
 
 .subtitle {
@@ -527,7 +517,7 @@ function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: 
   background: rgba(255, 255, 255, 0.07);
   border: 2px solid rgba(138, 43, 226, 0.3);
   border-radius: 0.75rem;
-  color: white;
+  color: #E0E0E0;
   transition: all 0.3s ease;
 }
 
@@ -538,7 +528,7 @@ function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: 
   background: linear-gradient(135deg, #ff00ff, #8a2be2);
   border: none;
   border-radius: 0.75rem;
-  color: white;
+  color: #E0E0E0;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -551,7 +541,7 @@ function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: 
   background: linear-gradient(135deg, #ff00ff, #8a2be2);
   border: none;
   border-radius: 0.75rem;
-  color: white;
+  color: #E0E0E0;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -639,7 +629,7 @@ function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: 
   border: none;
   padding: 1rem 2rem;
   border-radius: 0.75rem;
-  color: white;
+  color: #E0E0E0;
   font-weight: 500;
   font-family: 'Outfit', sans-serif;
   font-size: 1rem;
@@ -701,7 +691,7 @@ function selectAnswer(sectionIndex: number, questionIndex: number, optionIndex: 
   font-size: 1.6rem;
   line-height: 1.4;
   margin: 0;
-  color: white;
+  color: #E0E0E0;
   font-weight: 500;
 }
 
